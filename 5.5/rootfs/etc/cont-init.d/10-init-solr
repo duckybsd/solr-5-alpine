@@ -1,0 +1,18 @@
+#!/usr/bin/with-contenv sh
+
+corename=wodby
+basiccoredir=/opt/solr/server/solr/configsets/basic_configs
+coredir=/opt/solr/server/solr/$corename
+
+if [ ! -d $coredir ]; then
+    cp -r $basiccoredir/ $coredir
+    touch $coredir/core.properties
+
+    # confdir=/opt/solr_defaults/config/${WODBY_APP_TYPE}-${WODBY_APP_VERSION}
+    confdir=/opt/solr_defaults/config/drupal-8
+    if [ -d $confdir ]; then
+        cp $confdir/* $coredir/conf
+    fi
+
+    chown -R $WODBY_USER:$WODBY_GROUP $coredir
+fi
