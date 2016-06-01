@@ -6,7 +6,7 @@ coredir=/opt/solr/server/solr/$corename
 
 # Initialize Solr core
 if [ ! -f $coredir/core.properties ]; then
-    cp -r $basiccoredir/ $coredir
+    cp -r $basiccoredir/conf $coredir/
     touch $coredir/core.properties
 
     confdir=/opt/solr_defaults/config/${WODBY_APP_TYPE}-${WODBY_APP_VERSION}
