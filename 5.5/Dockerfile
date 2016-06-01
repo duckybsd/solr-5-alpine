@@ -55,6 +55,6 @@ RUN export SEARCH_API_SOLR_7_VERSION="7.x-1.10" && \
     wget -qO- https://ftp.drupal.org/files/projects/search_api_solr-${SAS_VERSION}.tar.gz | tar xz -C /tmp && \
     mkdir -p /opt/solr_defaults/config/drupal-${DRUPAL_VERSION} && \
     cp /tmp/search_api_solr/$SAS_CONFIG_DIR/* /opt/solr_defaults/config/drupal-${DRUPAL_VERSION}/ && \
-    rm -rf /tmp/search_api_solr && \
+    rm -rf /tmp/search_api_solr
 
 COPY 5.5/rootfs /
