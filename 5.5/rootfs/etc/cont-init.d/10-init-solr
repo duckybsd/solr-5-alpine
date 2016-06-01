@@ -4,12 +4,13 @@ corename=wodby
 basiccoredir=/opt/solr/server/solr/configsets/basic_configs
 coredir=/opt/solr/server/solr/$corename
 
-if [ ! -d $coredir ]; then
+# Initialize Solr core
+if [ ! -f $coredir/core.properties ]; then
     cp -r $basiccoredir/ $coredir
     touch $coredir/core.properties
 
-    # confdir=/opt/solr_defaults/config/${WODBY_APP_TYPE}-${WODBY_APP_VERSION}
-    confdir=/opt/solr_defaults/config/drupal-8
+    confdir=/opt/solr_defaults/config/${WODBY_APP_TYPE}-${WODBY_APP_VERSION}
+
     if [ -d $confdir ]; then
         cp $confdir/* $coredir/conf
     fi

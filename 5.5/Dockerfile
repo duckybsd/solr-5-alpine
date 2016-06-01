@@ -57,4 +57,4 @@ RUN export SEARCH_API_SOLR_7_VERSION="7.x-1.10" && \
     cp /tmp/search_api_solr/$SAS_CONFIG_DIR/* /opt/solr_defaults/config/drupal-${DRUPAL_VERSION}/ && \
     rm -rf /tmp/search_api_solr
 
-COPY 5.5/rootfs /
+COPY rootfs /
