@@ -1,19 +1,19 @@
 #!/usr/bin/with-contenv sh
 
-corename=wodby
-basiccoredir=/opt/solr/server/solr/configsets/basic_configs
-coredir=/opt/solr/server/solr/$corename
+core_dir=/opt/solr/server/solr/default
 
 # Initialize Solr core
-if [ ! -f $coredir/core.properties ]; then
-    cp -r $basiccoredir/conf $coredir/
-    touch $coredir/core.properties
+if [ ! -f $core_dir/core.properties ]; then
+    mkdir -p $core_dir/conf
 
-    confdir=/opt/solr_defaults/config/${WODBY_APP_TYPE}-${WODBY_APP_VERSION}
+    default_conf_dir=/opt/solr_defaults/config/${WODBY_APP_TYPE}-${WODBY_APP_VERSION}
 
-    if [ -d $confdir ]; then
-        cp $confdir/* $coredir/conf
+    if [ -d $default_conf_dir ]; then
+        cp $default_conf_dir/* $core_dir/conf
+    else
+        cp -r /opt/solr/server/solr/configsets/basic_configs/conf $core_dir
     fi
 
-    chown -R $WODBY_USER:$WODBY_GROUP $coredir
+    touch $core_dir/core.properties
+    chown -R $WODBY_USER:$WODBY_GROUP $core_dir
 fi
