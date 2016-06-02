@@ -1,19 +1,28 @@
-#!/usr/bin/with-contenv sh
+#!/bin/sh
 
-core_dir=/opt/solr/server/solr/default
+passwd=/opt/solr/server/etc/realm.properties
+cores=/opt/solr/server/solr/cores
+core=$cores/wodby
+
+# Configure Basic Auth
+if [ ! -f $passwd ]; then
+    echo "admin: $WODBY_SOLR_PASSWORD, admin" > $passwd
+    chown -R $WODBY_USER:$WODBY_GROUP $passwd
+fi
 
 # Initialize Solr core
-if [ ! -f $core_dir/core.properties ]; then
-    mkdir -p $core_dir/conf
+if [ ! -f $core/core.properties ]; then
+    mkdir -p $core/conf
 
-    default_conf_dir=/opt/solr_defaults/config/${WODBY_APP_TYPE}-${WODBY_APP_VERSION}
+    conf=/opt/solr_defaults/config/${WODBY_APP_TYPE}-${WODBY_APP_VERSION}
 
-    if [ -d $default_conf_dir ]; then
-        cp $default_conf_dir/* $core_dir/conf
+    if [ -d $conf ]; then
+        cp $conf/* $core/conf
     else
-        cp -r /opt/solr/server/solr/configsets/basic_configs/conf $core_dir
+        cp -r /opt/solr/server/solr/configsets/basic_configs/conf $core
     fi
 
-    touch $core_dir/core.properties
-    chown -R $WODBY_USER:$WODBY_GROUP $core_dir
+    touch $core/core.properties
 fi
+
+chown -R $WODBY_USER:$WODBY_GROUP $cores
