@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/with-contenv sh
 
 passwd=/opt/solr/server/etc/realm.properties
 cores=/opt/solr/server/solr/cores
