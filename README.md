@@ -1,1 +1,1 @@
-# solr-alpine
+# solr-5-alpine
