@@ -8,7 +8,7 @@
 #    https://github.com/docker-solr/docker-solr/tree/b8c4d759249af569e169d249fb667f79a230a0c0/5.5/alpine
 #
 
-FROM wodby/base-alpine:v1.0.3
+FROM wodby/base-alpine:3.4
 
 ENV LANG C.UTF-8
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk/jre
