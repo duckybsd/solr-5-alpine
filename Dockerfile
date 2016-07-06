@@ -16,7 +16,7 @@ ENV PATH $PATH:$JAVA_HOME/bin
 ENV JAVA_VERSION 8u92
 ENV JAVA_ALPINE_VERSION 8.92.14-r1
 ENV SOLR_VERSION 5.5.1
-ENV SOLR_URL http://www-us.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz
+ENV SOLR_URL http://archive.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz
 
 RUN export SEARCH_API_SOLR_7_VERSION="7.x-1.10" && \
     export SEARCH_API_SOLR_8_VERSION="8.x-1.0-alpha4" && \
