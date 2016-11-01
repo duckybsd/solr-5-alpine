@@ -43,7 +43,7 @@ RUN export SEARCH_API_SOLR_7_VERSION="7.x-1.10" && \
     mkdir -p /opt/solr/server/solr/lib && \
     sed -i -e 's/#SOLR_PORT=8983/SOLR_PORT=8983/' /opt/solr/bin/solr.in.sh && \
     sed -i -e '/-Dsolr.clustering.enabled=true/ a SOLR_OPTS="$SOLR_OPTS -Dsun.net.inetaddr.ttl=60 -Dsun.net.inetaddr.negative.ttl=60"' /opt/solr/bin/solr.in.sh && \
-    chown -R $WODBY_USER:$WODBY_GROUP /opt/solr && \
+    chown -R $WODBY_USER:$WODBY_GROUP /opt/solr
 
     # Download default Solr config for Drupal 7, 8.
 RUN export SAS_CONFIG_DIR=solr-conf/5.x && \
