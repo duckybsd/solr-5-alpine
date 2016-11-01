@@ -1,0 +1,29 @@
+language: python
+
+sudo: required
+
+services:
+  - docker
+
+env:
+  global:
+    - REPO=wodby/solr-5-alpine
+    - COMMIT=${TRAVIS_COMMIT::8}
+    - BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+
+install:
+  - docker build -t $REPO:$COMMIT ./
+
+script:
+  - pwd
+
+after_success: |
+  if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    export TAG=`if [ "$BRANCH" == "master" ]; then echo "latest"; else echo $BRANCH ; fi`
+    docker build -f Dockerfile -t $REPO:$COMMIT .
+    docker tag $REPO:$COMMIT $REPO:$TAG
+    docker tag $REPO:$COMMIT $REPO:build-$TRAVIS_BUILD_NUMBER
+    docker rmi $REPO:$COMMIT
+    docker push $REPO
+  fi
