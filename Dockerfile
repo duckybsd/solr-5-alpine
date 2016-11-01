@@ -46,7 +46,7 @@ RUN export SEARCH_API_SOLR_7_VERSION="7.x-1.10" && \
     chown -R $WODBY_USER:$WODBY_GROUP /opt/solr && \
 
     # Download default Solr config for Drupal 7, 8.
-    export SAS_CONFIG_DIR=solr-conf/5.x && \
+RUN export SAS_CONFIG_DIR=solr-conf/5.x && \
     mkdir -p /opt/solr_defaults && \
 
     export DRUPAL_VERSION=7 && \
