@@ -18,11 +18,8 @@ ENV JAVA_ALPINE_VERSION 8.101.13-r1
 ENV SOLR_VERSION 5.5.3
 ENV SOLR_URL http://archive.apache.org/dist/lucene/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz
 
-RUN export SEARCH_API_SOLR_7_VERSION="7.x-1.10" && \
-    export SEARCH_API_SOLR_8_VERSION="8.x-1.0-alpha4" && \
-
     # Install JRE
-    apk add --no-cache\
+RUN apk add --no-cache\
         tar \
         openjdk8-jre="$JAVA_ALPINE_VERSION" && \
 
@@ -45,12 +42,17 @@ RUN export SEARCH_API_SOLR_7_VERSION="7.x-1.10" && \
     sed -i -e '/-Dsolr.clustering.enabled=true/ a SOLR_OPTS="$SOLR_OPTS -Dsun.net.inetaddr.ttl=60 -Dsun.net.inetaddr.negative.ttl=60"' /opt/solr/bin/solr.in.sh && \
     chown -R $WODBY_USER:$WODBY_GROUP /opt/solr
 
+
+RUN SEARCH_API_SOLR_7_VERSION="7.x-1.11" && \
+    SEARCH_API_SOLR_8_VERSION="8.x-1.0-beta1" && \
+
     # Download default Solr config for Drupal 7, 8.
-RUN SAS_CONFIG_DIR=solr-conf/5.x && \
+    SAS_CONFIG_DIR=solr-conf/5.x && \
     mkdir -p /opt/solr_defaults && \
 
     DRUPAL_VERSION=7 && \
     SAS_VERSION=$SEARCH_API_SOLR_7_VERSION && \
+    https://ftp.drupal.org/files/projects/search_api_solr-7.x-1.11.tar.gz
     wget -qO- https://ftp.drupal.org/files/projects/search_api_solr-${SAS_VERSION}.tar.gz | tar xz -C /tmp && \
     mkdir -p /opt/solr_defaults/config/drupal-${DRUPAL_VERSION} && \
     cp /tmp/search_api_solr/$SAS_CONFIG_DIR/* /opt/solr_defaults/config/drupal-${DRUPAL_VERSION}/ && \
